@@ -1,0 +1,244 @@
+INSTRUCTION: The following commands is create table commands, you only need to copy and paste them into the sqlite command prompt to create table, you can create one table at a time.
+
+CREATE TABLE CUSTOMER
+(Email VARCHAR(30) not null,
+ Interests VARCHAR(30),
+ Birth_date CHAR(8) not null,
+ FName VARCHAR(20) not null,
+ LName VARCHAR(20) not null,
+ Gender CHAR(1),
+ Phone CHAR(10) not null,
+ CA_id VARCHAR(4) not null,
+CusLicense_no CHAR(8) UNIQUE,
+ PRIMARY KEY(Email),
+ FOREIGN KEY(CA_id) references ADDRESS(Aid));
+
+CREATE TABLE EMPLOYEE
+(Ssn CHAR(11) not null,
+ Salary DOUBLE not null,
+ Birth_date CHAR(8) not null,
+ FName VARCHAR(20) not null,
+ LName VARCHAR(20) not null,
+ Gender CHAR(1),
+ Phone CHAR(10) not null,
+  EM_License_no CHAR(8) UNIQUE,
+ EA_id VARCHAR(4) not null,
+ PRIMARY KEY(Ssn),
+  FOREIGN KEY(EA_id) references ADDRESS(Aid));
+
+CREATE TABLE AUTHOR
+(Id CHAR(9) not null,
+ Birth_date CHAR(8) not null,
+ FName VARCHAR(20) not null,
+ Lname VARCHAR(20) not null,
+ Gender CHAR(1) not null,
+ Phone CHAR(10) not null,
+ AU_License_no CHAR(8) UNIQUE,
+AA_id VARCHAR(4) not null,
+  PRIMARY KEY(Id),
+  FOREIGN KEY(AA_id) references ADDRESS(Aid));
+
+CREATE TABLE CUSTOMER_SERVICE
+(Typing_speed VARCHAR(20) not null,
+ Service_Ssn CHAR(11) not null,
+ PRIMARY KEY(Service_Ssn),
+ FOREIGN KEY(Service_Ssn) references EMPLOYEE(Ssn));
+
+CREATE TABLE TECHNICIAN
+(Tech_Ssn CHAR(11) not null,
+ Certificate VARCHAR(30) not null,
+PRIMARY KEY(Tech_Ssn),
+FOREIGN KEY(Tech_Ssn) references EMPLOYEE(Ssn)
+);
+
+CREATE TABLE MANAGER
+(Manager_Ssn CHAR(11) not null,
+ Skills VARCHAR(50) not null,
+ PRIMARY KEY(Manager_Ssn),
+ FOREIGN KEY(Manager_Ssn) references EMPLOYEE(Ssn));
+
+CREATE TABLE WRITE
+(Wid CHAR(9) not null,
+ WISBN VARCHAR(20) not null,
+ PRIMARY KEY(Wid,WISBN),
+ FOREIGN KEY(Wid) references AUTHOR(Id),
+FOREIGN KEY(WISBN) references BOOK(ISBN)
+);
+
+CREATE TABLE REQUEST_SERVICE
+(SEmail VARCHAR(30) not null,
+ Service_code VARCHAR(4) not null,
+ Date CHAR(10) not null,
+Service_Ssn CHAR(11) not null,
+ PRIMARY KEY( Service_code),
+ FOREIGN KEY(SEmail) references CUSTOMER(Email),
+ FOREIGN KEY(Service_Ssn) references EMPLOYEE(Ssn)
+);
+
+CREATE TABLE CHECK_ORDER
+(Check_Ssn CHAR(11) not null,
+ Check_Order_no VARCHAR(20) not null,
+Check_Quantity INT not null,
+Check_Date CHAR(10) not null,
+ PRIMARY KEY (Check_Ssn,Check_Order_no),
+ FOREIGN KEY(Check_Ssn) references CUSTOMER_SERVICE (Service_Ssn),
+ FOREIGN KEY(Check_Order_no) references BOOK_ORDER(Order_no)
+);
+
+CREATE TABLE BOOK_ORDER
+(CusEmail VARCHAR(30)  not null,
+ Order_no VARCHAR(20) not null,
+ Date CHAR(10) not null,
+ PRIMARY KEY(Order_no),
+ FOREIGN KEY(CusEmail) references CUSTOMER(Email));
+
+CREATE TABLE CONTAIN
+(ConOrder_no VARCHAR(20) not null,
+ CISBN VARCHAR(20) not null,
+ CQuantity int not null,
+ PRIMARY KEY(ConOrder_no,CISBN)
+ FOREIGN KEY(ConOrder_no) references BOOK_ORDER(Order_no),
+ FOREIGN KEY(CISBN) references BOOK(ISBN));
+
+CREATE TABLE SALE
+(Promo_Code VARCHAR(30) not null,
+ Discount_percent INT not null,
+ PRIMARY KEY(Promo_Code));
+
+CREATE TABLE BOOK
+(ISBN VARCHAR(20) PRIMARY KEY,
+W_Tax_Id VARCHAR(4) not null,
+Category VARCHAR(20) not null,
+Price DOUBLE not null,
+Version VARCHAR(5) not null,
+Title VARCHAR(50) not null,
+Quantity INT not null,
+ FOREIGN KEY(W_Tax_Id) references WAREHOUSE(Ware_Tax_Id));
+
+CREATE TABLE LIVE
+(Live_id VARCHAR(4) not null,
+ Drive_no CHAR(8) not null,
+ PRIMARY KEY(Live_id,Drive_no),
+ FOREIGN KEY(Live_id) references ADDRESS(Aid),
+ FOREIGN KEY(Drive_no) references CUSTOMER(CusLicense_no),
+FOREIGN KEY(Drive_no) references EMPLOYEE(EM_License_no),
+FOREIGN KEY(Drive_no) references AUTHOR(AU_License_no));
+
+CREATE TABLE PAYMENT
+(Amount double not null,
+ POrder_no VARCHAR(20) not null,
+Security_code CHAR(3) not null,
+Billing_zip CHAR(5) not null,
+Card_number VARCHAR(20) not null,
+ PRIMARY KEY(Card_number,POrder_no)
+FOREIGN KEY(POrder_no) references BOOK_ORDER(Order_no));
+
+
+CREATE TABLE SHIPMENT
+(SOrder_no VARCHAR(20) not null,
+ Tax_Id VARCHAR(4) not null,
+Cost Double not null,
+ Last_location_tracking VARCHAR(50),
+Type VARCHAR(30) not null,
+ PRIMARY KEY(SOrder_no,Type),
+ FOREIGN KEY(SOrder_no) references BOOK_ORDER(Order_no),
+ FOREIGN KEY(Tax_Id) references POST_OFFICE(Tax_Id));
+
+
+CREATE TABLE SALE_DETAIL
+(SPromo_Code VARCHAR(30) not null,
+ Start_date CHAR(10) not null,
+ End_Date CHAR(10) not null,
+ SISBN VARCHAR(20) not null,
+ Amount int not null,
+PRIMARY KEY(SPromo_Code,SISBN),
+  FOREIGN KEY(SPromo_Code) references SALE(Promo_Code),
+ FOREIGN KEY(SISBN) references BOOK(ISBN));
+
+CREATE TABLE PUBLISH
+(Publish_Tax_Id VARCHAR(4) not null,
+ PubISBN VARCHAR(20) not null,
+ Date CHAR(10) not null,
+ Amount INT not null,
+ PRIMARY KEY(Publish_Tax_Id,PubISBN),
+  FOREIGN KEY(Publish_Tax_Id) references PUBLISHER(Publisher_Tax_Id),
+  FOREIGN KEY(PubISBN) references BOOK(ISBN));
+
+CREATE TABLE ADDRESS
+(Aid VARCHAR(4) not null,
+Zip CHAR(5) not null,
+Street VARCHAR(40) not null,
+PRIMARY KEY(Aid));
+
+CREATE TABLE WAREHOUSE
+(Ware_Tax_Id VARCHAR(4) not null,
+ Ware_Name VARCHAR(30) not null,
+ Stock INT not null,
+ Capacity INT not null,
+ Mgr_Ssn CHAR(11) not null,
+ Phone CHAR(10) not null,
+ Wid VARCHAR(4) not null,
+ PRIMARY KEY(Ware_Tax_ID),
+ FOREIGN KEY(Mgr_Ssn) references EMPLOYEE(Ssn),
+FOREIGN KEY(Wid) references ADDRESS(Aid));
+
+CREATE TABLE SUPPLIER
+(Supplier_Tax_Id VARCHAR(4) not null,
+ Sup_Name VARCHAR(30) not null,
+ Phone CHAR(10) not null,
+ Sup_Id VARCHAR(4) not null,
+  PRIMARY KEY (Supplier_Tax_Id)
+ FOREIGN KEY(Sup_Id) references ADDRESS(Aid));
+
+CREATE TABLE PUBLISHER
+(Publisher_Tax_Id VARCHAR(4) not null,
+ Pub_Name VARCHAR(30) not null,
+ Phone CHAR(10) not null,
+ Pub_Id VARCHAR(4) not null,
+PRIMARY KEY (Publisher_Tax_Id),
+ FOREIGN KEY(Pub_Id) references ADDRESS(Aid));
+
+CREATE TABLE POST_OFFICE
+(Tax_Id VARCHAR(4) not null,
+ Post_Name VARCHAR(30) not null,
+ Phone CHAR(10) not null,
+ Po_Id VARCHAR(4) not null,
+ PRIMARY KEY (Tax_Id),
+  FOREIGN KEY(Po_Id) references ADDRESS(Aid));
+
+CREATE TABLE PROVIDE
+(Sup_Tax_Id VARCHAR(4) not null,
+ Pub_Tax_Id VARCHAR(4) not null,
+Pro_ISBN VARCHAR(20) not null,
+ Amount INT not null,
+  PRIMARY KEY(Sup_Tax_Id,Pub_Tax_Id,Pro_ISBN),
+  FOREIGN KEY(Sup_Tax_Id) references SUPPLIER(Supplier_Tax_Id),
+  FOREIGN KEY(Pub_Tax_ID) references PUBLISHER(Publisher_Tax_Id));
+
+CREATE TABLE SUPPLY
+(Store_Tax_Id VARCHAR(4) not null,
+ S_Tax_Id VARCHAR(4) not null,
+ Sup_ISBN VARCHAR(20) not null,
+Amount int not null,
+ PRIMARY KEY(Store_Tax_Id,S_Tax_Id,Sup_ISBN)
+  FOREIGN KEY(Store_Tax_Id) references WAREHOUSE(Ware_Tax_Id),
+  FOREIGN KEY(S_Tax_Id) references SUPPLIER(Supplier_Tax_Id));
+
+INSTRUCTION: The following two commands are used to create views, you can copy and paste them into the sqlite command prompt to create a view at a time.
+
+CREATE VIEW Popular_Book(Popular_ISBN,Popular_Title)AS SELECT ISBN,TitleFROM BOOKWHERE Title IN(SELECT TitleFROM (SELECT Title, SUM(CQuantity)FROM BOOK,CONTAINWHERE ISBN=CISBN GROUP BY ISBNHAVING SUM(CQuantity)>(SELECT AVG(sum) FROM(SELECT SUM(CQuantity) AS sumFROM BOOK,CONTAINWHERE ISBN=CISBNGROUP BY ISBN))));
+
+CREATE VIEW Salegood_Book ASSELECT ISBN,Title,Discount_percentFROM SALE, SALE_DETAIL,BOOKWHERE ISBN=SISBN AND SPromo_Code=Promo_Code AND ISBN IN(SELECT SISBNFROM(SELECT SISBN,SUM(Amount)FROM SALE_DETAIL,SALEWHERE SPromo_Code=Promo_CodeGROUP BY SISBN, Discount_percentHAVING SUM(Amount)> (SELECT AVG(sum) FROM(SELECT SUM(Amount) AS sumFROM SALE_DETAIL, SALEWHERE SPromo_Code=Promo_CodeGROUP BY SISBN,Discount_percent))));
+
+INSTRUCTION: The following two commands are used to create indexes, you can copy and paste them into the sqlite command prompt to create a index at a time.
+
+CREATE INDEX Zip_Of_Reading_People
+ON PAYMENT(Billing_zip);
+CREATE INDEX Book_Quantity
+ON BOOK(ISBN,Quantity);
+
+CREATE INDEX Customer_Interests
+ON CUSTOMER(Interests);
+
+CREATE INDEX Employee_Salary
+ON EMPLOYEE(Salary);

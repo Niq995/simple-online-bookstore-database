@@ -1,0 +1,159 @@
+a. 	Find the titles of all books by Pratchett that cost less than $10SQL: SELECT TitleFROM BOOK AS B, AUTHOR AS A, WRITE AS WWHERE B.Price<10 AND A.Id=W.Wid AND W.WISBN=B.ISBN    AND A.LName='Pratchett';b. 	Give all the titles and their dates of purchase made by a single customer (you choose how to designate the customer)assume the email of the customer is a@osu.edu
+
+SQL: SELECT  Title, Date
+	FROM BOOK_ORDER, CONTAIN, BOOK
+             WHERE CusEmail='a@osu.edu' AND Order_no=ConOrder_no 
+                            AND CISBN=ISBN;
+
+c. 	Find the titles and ISBNs for all books with less than 5 copies in stock                 
+SQL: SELECT Title, ISBN
+	FROM  WAREHOUSE, BOOK
+             WHERE Ware_Tax_id = W_Tax_id AND Quantity < 5; 
+ d. Give all the customers who purchased a book by Pratchett and the titles of Pratchett books they purchasedSQL: SELECT CUSTOMER.FName, CUSTOMER.LName,Title
+             FROM CUSTOMER, BOOK_ORDER, CONTAIN,BOOK, WRITE,AUTHOR
+             WHERE  AUTHOR.LName='Pratchett'  AND Email=CusEmail AND Order_no= ConOrder_no AND CISBN=ISBN AND ISBN=WISBN AND Wid=Id;
+
+e. 	Find the total number of books purchased by a single customer (you choose how to designate the customer)assume the email of the customer is a@osu.edu 
+
+SQL: SELECT SUM(CQuantity)
+FROM BOOK_ORDER, CONTAIN
+WHERE  CusEmail='a@osu.edu' AND Order_no=ConOrder_no;
+
+f.  	Find the customer who has purchased the most books and the total number of books they have purchased 
+
+SQL: SELECT CusEmail,SUM(CQuantity)
+FROM CONTAIN,BOOK_ORDER
+WHERE Order_no=ConOrder_no
+GROUP BY CusEmail
+HAVING SUM(CQuantity)=
+      (SELECT MAX(max) 
+                FROM( SELECT SUM(CQuantity) as max
+                        FROM BOOK_ORDER, CONTAIN 
+                        WHERE Order_no=ConOrder_no GROUP BY CusEmail));Query 1: Find the discount percentage of all the sales and their start date and end date
+SQL: SELECT Discount_percent,Start_date,End_date
+FROM SALE, SALE_DETAIL
+WHERE Promo_code=SPromo_code;
+Query 2: Find the name of the publisher that provides the supplier with the largest amount of book
+SQL: SELECT Pub_Name,SUM(Amount)
+FROM PROVIDE,PUBLISHER
+WHERE Publisher_Tax_Id=Pub_Tax_Id
+GROUP BY Pub_Tax_Id
+HAVING SUM(Amount)=(SELECT MAX(sum)
+FROM (SELECT SUM(Amount) AS sum
+FROM PROVIDE,PUBLISHER
+WHERE Publisher_Tax_Id=Pub_Tax_Id
+GROUP BY Pub_Tax_Id));
+Query 3: Given the tax id of a warehouse, find the name of the manager who manages it.
+
+SQL: SELECT FName,LName
+FROM WAREHOUSE, MANAGER, EMPLOYEE
+WHERE  Ware_Tax_id='123' AND Mgr_Ssn=Manager_Ssn And Manager_Ssn=Ssn;
+
+1.Provide a list of customer names, along with the total dollar amount each customer has spent.
+SELECT FName,LName, SUM(Amount)
+FROM CUSTOMER, BOOK_ORDER,PAYMENT
+WHERE Email=CusEmail
+GROUP BY Email;
+
+ 
+2.Provide a list of customer names and e-mail addresses for customers who have spent more than the average customer.
+
+SELECT Email,FName,LName
+FROM CUSTOMER
+WHERE Email IN
+(SELECT Email
+FROM(SELECT Email, SUM(Amount)
+             FROM CUSTOMER, BOOK_ORDER,PAYMENT
+             WHERE Email=CusEmail AND POrder_no=Order_no
+              GROUP BY Email
+             HAVING SUM(Amount)> (SELECT AVG(sum)
+                                                          FROM (SELECT SUM(Amount) AS sum
+                                                                                      FROM CUSTOMER, BOOK_ORDER,PAYMENT
+                                                                                  WHERE Email=CusEmail AND POrder_no=Order_no
+                                                                                 GROUP BY  Email))));
+
+ 3.Provide a list of the titles in the database and associated total copies sold to customers, sorted from the title that has sold the most individual copies to the title that has sold the least.
+
+ SELECT Title, SUM(CQuantity)
+FROM  CONTAIN, BOOK
+WHERE CISBN=ISBN
+GROUP BY ISBN
+ORDER BY SUM(CQuantity) DESC;
+
+4.Provide a list of the titles in the database and associated dollar totals for copies sold to customers, sorted from the title that has sold the highest dollar amount to the title that has sold the smallest.
+SELECT Title, SUM(CQuantity * Price) AS Revenue
+FROM CONTAIN, BOOK
+WHERE CISBN=ISBN
+GROUP BY ISBN
+ORDER BY Revenue DESC;
+
+Find the most popular author in the database (i.e. the one who has sold the most books)
+SELECT FName,LName
+FROM AUTHOR
+WHERE Id IN
+(SELECT Id
+             FROM   (SELECT Id, SUM(CQuantity)
+               FROM CONTAIN, BOOK,WRITE,AUTHOR
+              WHERE CISBN=ISBN AND  ISBN=WISBN AND WId=Id
+                GROUP BY Id
+                  HAVING SUM(CQuantity)=(SELECT MAX(sum)
+                                                                 FROM(SELECT SUM(CQuantity) AS sum
+                                                                  FROM CONTAIN, BOOK,WRITE,AUTHOR
+                                                               WHERE CISBN=ISBN AND  ISBN=WISBN AND WId=Id
+                                                                GROUP BY Id))));
+
+5.Find the most profitable author in the database for this store (i.e. the one who has brought in the most money)
+SELECT FName, LName
+FROM AUTHOR
+WHERE Id IN
+(SELECT Id 
+       FROM   (SELECT Id, SUM(CQuantity * Price)
+            FROM CONTAIN, BOOK, AUTHOR,WRITE
+           WHERE CISBN=ISBN AND ISBN=WISBN AND WId=Id
+            GROUP BY Id  
+            HAVING SUM(CQuantity * Price)=(SELECT MAX(Revenue)
+                                                              FROM(SELECT SUM(CQuantity *Price) AS Revenue
+                                                                FROM CONTAIN, BOOK, AUTHOR,WRITE
+                                                               WHERE CISBN=ISBN AND ISBN=WISBN AND WId=Id
+                                                               GROUP BY Id ))));
+
+ 6.Provide a list of customer information for customers who purchased anything written by the most profitable author in the database.
+FROM BOOK_ORDER, CONTAIN, BOOK,WRITE
+WHERE Order_no=ConOrder_no AND CISBN=ISBN AND ISBN=WISBN AND WId IN(
+SELECT Id
+FROM AUTHOR
+WHERE Id IN
+(SELECT Id
+        FROM (SELECT Id, SUM(CQuantity * Price)
+            FROM CONTAIN, BOOK, AUTHOR,WRITE
+           WHERE CISBN=ISBN AND ISBN=WISBN AND WId=Id
+            GROUP BY Id  
+            HAVING SUM(CQuantity*Price)=(SELECT MAX(Revenue)
+                                                              FROM(SELECT SUM(CQuantity *Price) AS Revenue
+                                                                FROM CONTAIN, BOOK, AUTHOR,WRITE
+                                                               WHERE CISBN=ISBN AND ISBN=WISBN AND WId=Id
+                                                               GROUP BY Id ))))));
+
+
+
+
+ 7.Provide the list of authors who wrote the books purchased by the customers who have spent more than the average customer.
+
+SELECT AUTHOR.FName, AUTHOR.LName
+FROM AUTHOR, CUSTOMER, BOOK_ORDER,CONTAIN, BOOK,WRITE
+WHERE Email=CusEmail AND Order_no=ConOrder_no AND CISBN=ISBN AND WISBN=ISBN                 AND WId=Id AND Email IN (SELECT  Email
+                                                 FROM CUSTOMER
+                                                  WHERE Email IN
+                                              (SELECT Email 
+                                                FROM (SELECT Email, SUM(Amount)
+                                                   FROM CUSTOMER, BOOK_ORDER,PAYMENT
+                                                   WHERE Email=CusEmail AND POrder_no=Order_no
+                                                    GROUP BY Email
+                                                       HAVING SUM(Amount)> (SELECT AVG(sum)
+                                                          FROM (SELECT SUM(Amount) AS sum
+                                                                                      FROM CUSTOMER, BOOK_ORDER,PAYMENT
+                                                                                     WHERE Email=CusEmail AND POrder_no=Order_no
+                                                                                          GROUP BY  Email)))));
+
+
+

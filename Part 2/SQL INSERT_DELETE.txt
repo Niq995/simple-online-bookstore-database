@@ -1,0 +1,69 @@
+The following data have already inserted in the database, there is no need to insert them again.
+Examples of Insert:
+The command to insert a book:
+INSERT INTO BOOK
+VALUES ('72227710','123','Computer','17.49','1st','How To Do Everything with Your Tablet PC','300');
+
+The command to insert the publisher of the book if the publishier does not exist in the database
+INSERT INTO PUBLISHER
+VALUES (‘568’,'Schmidt Ink, Inc.','3129688488','124');
+
+The command to insert the author of the book if the author does not exist in the database
+INSERT INTO AUTHOR
+VALUES ('534505273', '19350305', 'Larry', 'Bossidy', 'M', '8577289966', 'US350760', '114');
+
+The command to insert a new customer
+INSERT INTO CUSTOMER
+VALUES ('b@osu.edu', 'drama', '19800301', 'Peter', 'Harrt’, 'M', '6141111102', '012', 'US171073');
+
+The command to insert a relationship between CustomerThe command to insert a relationship between Author and Address and Address
+INSERT INTO LIVE
+VALUES ('012','US171073');
+
+The command to insert a relationship between Author and Book
+INSERT INTO WRITE 
+VALUES ('534505273', '72227710);
+
+The command to insert a relationship between Author and Address if the author does not exist in the database
+INSERT INTO LIVE
+VALUES (‘114’,’US350760');
+
+
+Examples of Delete:
+The instruction of deleting a book from database: 
+DELETE FROM BOOK
+WHERE   ISBN = '72227710';
+
+DELETE FROM WRITE
+WHERE   WISBN = '72227710';
+
+DELETE FROM PUBLISH
+WHERE   PubISBN = '72227710';
+
+
+The instruction of deleting a publisher from database: 
+DELETE FROM PUBLISHER
+WHERE   Publisher_Tax_Id = '112';
+
+DELETE FROM PUBLISH
+WHERE  Publish_Tax_Id = '112';
+
+The instruction of deleting an author from the database:
+DELETE FROM AUTHOR
+WHERE  Id = '243243723' AND
+               AU_License_no = 'US350760';
+
+DELETE FROM WRITE
+WHERE Wid = '243243723';
+
+DELETE FROM LIVE
+WHERE drive_no = 'US350760';
+
+The instruction of deleting a customer from the database:
+DELETE FROM CUSTOMER
+WHERE Email = 'b@osu.edu' AND
+               CusLicense_no = 'US171073';
+
+DELETE FROM LIVE
+WHERE drive_no = 'US171073';
+

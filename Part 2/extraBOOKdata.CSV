@@ -1,0 +1,90 @@
+ISBN,W_Tax_id,Category,Price,Version,Title,Quantity
+316602051,123,Literature & Fiction,27.95,1st,The Jester,100
+743222008,123,Literature & Fiction,25.00,1st,The Vanished Man: A Lincoln Rhyme Novel,100
+66214750,123,Literature & Fiction,25.95,1st,Twelve Times Blessed,100
+787960756,123,Accounting & Finance,13.20,1st,The Five Dysfunctions of a Team: A Leadership Fable,100
+743206062,123,Accounting & Finance,26.00,1st,The Second Time Around,100
+1590520734,123,Romance,12.99,1st,The Rescuer: The O'Malley Series,100
+60934417,123,Romance,13.95,1st,Bel Canto: A Novel,100
+440237556,123,Romance,6.99,1st,The Dark Highlander,100
+373272839,123,Romance,4.75,1st,Letters to Kelly,100
+670031518,123,Science,27.95,1st,The Blank Slate: The Modern Denial of Human Nature,100
+738206679,123,Science,26.00,1st,Linked: The New Science of Networks,100
+67976867,123,Science,15.00,1st,Consilience: The Unity of Knowledge,100
+679450785,123,Science,22.00,1st,The Future of Life,100
+1579550088,123,Science,44.95,1st,A New Kind of Science,100
+684843285,123,Science,22.00,1st,ON FOOD AND COOKING,100
+471358983,123,Home Design,40.00,1st,Building Construction Illustrated,100
+394739698,123,Home Design,24.95,1st,A Field Guide to American Houses,100
+1586851322,123,Home Design,39.95,1st,Prefab,100
+1586851357,123,Home Design,60.00,1st,Cabins & Camps,100
+156158648,123,Home Design,24.95,1st,The New City Home: Smart Solutions for Metro Living,100
+865659982,123,Home Design,50.00,1st,Composers' Houses,100
+517576600,123,Home Design,50.00,1st,Color: Natural Palettes for Painted Rooms,100
+262024829,123,Accounting & Finance,70.00,1st,Financial Modeling ,100
+72294337,123,Accounting & Finance,122.50,1st,Financial Markets & Corporate Strategy,100
+72315318,123,Accounting & Finance,79.20,1st,Analysis for Financial Management,100
+324107501,123,Accounting & Finance,112.95,1st,Advanced Accounting,200
+471363049,123,Accounting & Finance,139.20,1st,Intermediate Accounting,200
+130323519,123,Accounting & Finance,126.67,1st,Financial Reporting and Analysis ,200
+446527793,123,Literature & Fiction,24.95,1st,The Guardian,200
+743206061,123,Literature & Fiction,26.00,1st,The Second Time Around,200
+743244249,123,Literature & Fiction,25.00,1st,Cosmopolis: A Novel,200
+743467523,123,Horror,7.99,1st,Dreamcatcher,200
+375703764,456,Horror,19.95,1st,House of Leaves,200
+345452089,456,Horror,6.99,1st,The Vampire's Violin,200
+385504470,456,Horror,17.47,1st,Lullaby: A Novel,200
+312276702,456,Horror,24.95,1st,Jinn: A Novel,200
+743457358,456,Horror,7.99,1st,Everything's Eventual: 14 Dark Tales,200
+1880418568,456,Horror,35.00,1st,Wolves of the Calla ,200
+743455967,456,Horror,7.99,2nd,On Writing,200
+140077022,456,Literature & Fiction,14.00,2nd,White Noise ,300
+679722955,456,Literature & Fiction,11.20,2nd,The Names,300
+684848155,456,Literature & Fiction,16.00,2nd,UNDERWORLD: A NOVEL,300
+471286168,456,Home Design,39.95,2nd,"Architecture: Form, Space, and Order",300
+471288217,456,Home Design,39.95,2nd,A Visual Dictionary of Architecture,300
+156006219,456,Romance,13.00,2nd,The Magician's Assistant,300
+60540753,456,Romance,13.95,2nd,Patron Saint of Liars,300
+393318486,456,Science,17.95,2nd,How the Mind Works,300
+60958332,456,Science,10.50,2nd,The Language Instinct: How the Mind Creates Language,400
+60958405,456,Science,15.00,2nd,Words and Rules: The Ingredients of Language,400
+393319407,456,Science,16.95,2nd,The Diversity of Life,400
+67463442,456,Science,18.95,2nd,On Human Nature,400
+446608955,456,Literature & Fiction,6.99,2nd,A Walk to Remember,400
+446676098,456,Literature & Fiction,12.95,2nd,The Notebook,400
+446606812,456,Literature & Fiction,7.50,2nd,Message in a Bottle,400
+262521415,456,Accounting & Finance,35.00,2nd,Numerical Techniques in Finance,400
+262232197,456,Accounting & Finance,74.95,2nd,Econometric Analysis of Cross Section and Panel Data,400
+324113641,456,Accounting & Finance,107.95,2nd,Introductory Econometrics: A Modern Approach,400
+471391123,456,Accounting & Finance,50.00,2nd,Beyond Coso : Internal Control to Enhance Corporate Governance,400
+130998516,456,Computer,83.00,2nd,Real World FPGA Design with Verilog,400
+1565924916,456,Computer,39.95,2nd,Ldap System Administration,400
+735712360,456,Computer,39.99,2nd,The Photoshop Book for Digital Photographers,400
+735712379,456,Computer,39.99,2nd,Photoshop 7 Down & Dirty Tricks,400
+735713170,456,Computer,29.99,2nd,Mac OS X v. 10.2 Jaguar Killer Tips,400
+1558606432,456,Computer,34.95,2nd,Persuasive Technology: Using Computers to Change What We Think and Do,400
+72222743,456,Computer,59.99,2nd,A+ Certification All-in-One Exam Guide,400
+345409469,456,Science,14.95,2nd,The Demon-Haunted World: Science As a Candle in the Dark,400
+375508325,456,Science,35.00,2nd,Cosmos,400
+345336895,456,Science,6.99,2nd,Broca's Brain: Reflections on the Romance of Science,400
+671004107,456,Science,7.99,2nd,Contact,500
+345376595,456,Science,12.95,2nd,Pale Blue Dot: A Vision of the Human Future in Space,500
+316666343,456,Literature & Fiction,21.95,2nd,The Lovely Bones: A Novel,500
+316096199,456,Literature & Fiction,11.95,2nd,Lucky: A Memoir,500
+38572179,456,Literature & Fiction,14.00,2nd,Atonement,500
+385494246,456,Literature & Fiction,12.00,2nd,Amsterdam,500
+385494327,456,Literature & Fiction,14.00,2nd,Black Dogs,500
+385494149,456,Literature & Fiction,13.00,2nd,Enduring Love,500
+399149848,456,Literature & Fiction,25.95,2nd,Birthright,500
+373218192,456,Literature & Fiction,7.50,2nd,Engaging The Enemy,500
+373218257,456,Literature & Fiction,14.95,2nd,Love By Design,500
+399149392,456,Literature & Fiction,25.95,2nd,Chesapeake Blue,500
+1561584029,456,Home Design,39.95,2nd,The Complete Illustrated Guide to Furniture and Cabinet Construction,500
+1579902944,123,Home Design,19.95,2nd,Choosing & Using Hand Tools,500
+1561586196,123,Home Design,19.95,2nd,Building a Shed,500
+61092177,123,Fantasy,7.99,2nd,Small Gods,500
+60502935,123,Fantasy,7.99,2nd,Going Postal,700
+61020656,123,Fantasy,7.99,2nd,Pyramids,700
+60855925,123,Fantasy,13.99,3rd,The Color of Magic,700
+61020648,123,Fantasy,7.99,3rd,Guards! Guards!,700
+61161721,123,Fantasy,7.99,3rd,Unseen Academicals,700
